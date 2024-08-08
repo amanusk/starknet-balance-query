@@ -1,0 +1,30 @@
+[package]
+name = "balance_query"
+version = "0.1.0"
+license-file = "LICENSE"
+
+# See more keys and their definitions at https://docs.swmansion.com/scarb/docs/reference/manifest
+
+[[target.starknet-contract]]
+sierra = true
+casm=true
+
+[lib]
+
+
+[dependencies]
+starknet = "2.7.0"
+openzeppelin = { git = "https://github.com/openzeppelin/cairo-contracts", rev = "a13bae3"}
+
+[dev-dependencies]
+snforge_std = { git = "https://github.com/foundry-rs/starknet-foundry.git", tag = "v0.27.0" }
+
+
+
+[cairo]
+sierra-replace-ids = true
+
+[profile.devnet]
+account="devnet-rs"
+network = "testnet"
+url = "http://127.0.0.1:5050"

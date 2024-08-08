@@ -1,0 +1,11 @@
+target
+.DS_Store
+*/.snfoundry_cache/**
+.snfoundry_cache/**
+.snfoundry_versioned_programs/**
+.snfoundry_trace/**
+profile/**
+
+.vscode/*
+
+profile.pb.gz
