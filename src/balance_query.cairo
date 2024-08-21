@@ -8,7 +8,7 @@ use debug::PrintTrait;
 
 use balance_query::erc20::erc20::{IERC20, IERC20Dispatcher, IERC20DispatcherTrait};
 
-#[derive(Drop, Serde, Copy)]
+#[derive(Drop, Serde, Copy, Debug)]
 struct TokenBalance {
     account_address: ContractAddress,
     token_address: ContractAddress,
@@ -54,13 +54,20 @@ mod BalanceQuery {
             account_addresses: Array<ContractAddress>
         ) -> Array<TokenBalance> {
             let mut balances: Array<TokenBalance> = ArrayTrait::new();
-            let mut counter = 0;
 
-            for _token_address in token_addresses
+            for token_address in token_addresses
                 .span() {
-                    for _account_address in account_addresses.span() {
-                        counter = counter + 1;
-                    }
+                    let erc20 = IERC20Dispatcher { contract_address: *token_address };
+                    for account_address in account_addresses
+                        .span() {
+                            let amount = erc20.balance_of(*account_address);
+                            let token_balance = TokenBalance {
+                                account_address: *account_address,
+                                token_address: *token_address,
+                                amount: amount,
+                            };
+                            balances.append(token_balance);
+                        }
                 };
 
             return balances;
