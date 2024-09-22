@@ -14,17 +14,7 @@ casm=true
 
 [dependencies]
 starknet = "2.7.0"
-openzeppelin = { git = "https://github.com/openzeppelin/cairo-contracts", rev = "80f7224"}
+openzeppelin = "0.15.1"
 
 [dev-dependencies]
-snforge_std = { git = "https://github.com/foundry-rs/starknet-foundry.git", tag = "v0.27.0" }
-
-
-
-[cairo]
-sierra-replace-ids = true
-
-[profile.devnet]
-account="devnet-rs"
-network = "testnet"
-url = "http://127.0.0.1:5050"
+snforge_std = "0.30.0"

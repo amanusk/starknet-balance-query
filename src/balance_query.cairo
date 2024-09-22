@@ -17,11 +17,17 @@ struct TokenBalance {
 
 #[starknet::interface]
 trait IBalanceQuery<TContractState> {
-    fn query_balance(
+    fn query_balance_struct(
         self: @TContractState,
         token_addresses: Array<ContractAddress>,
         account_addresses: Array<ContractAddress>
     ) -> Array<TokenBalance>;
+
+    fn query_balance_lists(
+        self: @TContractState,
+        token_addresses: Array<ContractAddress>,
+        account_addresses: Array<ContractAddress>
+    ) -> Array<Array<u256>>;
 }
 
 #[starknet::contract]
@@ -48,7 +54,7 @@ mod BalanceQuery {
 
     #[abi(embed_v0)]
     impl BalanceQuery of super::IBalanceQuery<ContractState> {
-        fn query_balance(
+        fn query_balance_struct(
             self: @ContractState,
             token_addresses: Array<ContractAddress>,
             account_addresses: Array<ContractAddress>
@@ -71,6 +77,28 @@ mod BalanceQuery {
                 };
 
             return balances;
+        }
+
+        fn query_balance_lists(
+            self: @ContractState,
+            token_addresses: Array<ContractAddress>,
+            account_addresses: Array<ContractAddress>
+        ) -> Array<Array<u256>> {
+            let mut result: Array<Array<u256>> = ArrayTrait::new();
+
+            for token_address in token_addresses
+                .span() {
+                    let mut token_balances: Array<u256> = ArrayTrait::new();
+                    let erc20 = IERC20Dispatcher { contract_address: *token_address };
+                    for account_address in account_addresses
+                        .span() {
+                            let amount = erc20.balance_of(*account_address);
+                            token_balances.append(amount);
+                        };
+                    result.append(token_balances);
+                };
+
+            return result;
         }
     }
 }

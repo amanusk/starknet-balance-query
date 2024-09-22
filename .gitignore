@@ -9,3 +9,8 @@ profile/**
 .vscode/*
 
 profile.pb.gz
+
+
+# Added by cargo
+
+/target
