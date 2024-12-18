@@ -9,9 +9,6 @@ edition = "2024_07"
 [[target.starknet-contract]]
 sierra = true
 
-[lib]
-
-
 [dependencies]
 starknet = "2.9.0"
 openzeppelin = "0.20.0"
