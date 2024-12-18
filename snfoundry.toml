@@ -4,10 +4,16 @@ network = "testnet"
 url = "http://192.168.1.45:5235"
 
 [sncast.sepolia]
-account="/home/amanusk/starkli-accounts/sepolia/sepolia-account.json"
-keystore="/home/amanusk/starkli-accounts/sepolia/sepolia-keystore.json"
+account="/home/amanusk/.starkli-accounts/sepolia/sepolia-braavos.json"
+keystore="/home/amanusk/.starkli-accounts/sepolia/sepolia-braavos-signer.json"
 network = "sepolia"
 url = "http://192.168.1.45:9235/rpc/v0_7"
+
+[sncast.mainnet]
+account="/home/amanusk/.starkli-accounts/mainnet/braavos-mainnet.json"
+keystore="/home/amanusk/.starkli-accounts/mainnet/braavos-mainnet.json"
+network = "mainnet"
+url = "http://192.168.1.45:1235/rpc/v0_7"
 
 [sncast.devnet]
 account="devnet-rs"

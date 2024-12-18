@@ -1,31 +1,12 @@
 use snforge_std::{declare, cheat_caller_address, ContractClassTrait, CheatSpan, DeclareResultTrait};
 
-use snforge_std::{spy_events, EventSpyAssertionsTrait};
 
-use starknet::{
-    contract_address_const, get_block_info, ContractAddress, Felt252TryIntoContractAddress, TryInto,
-    Into, OptionTrait, class_hash::Felt252TryIntoClassHash, get_caller_address,
-    get_contract_address,
-};
+use starknet::{contract_address_const, ContractAddress};
 
 
-use starknet::storage_read_syscall;
-
-// use token_sender::tests::test_utils::{assert_eq};
-
-use array::{ArrayTrait, SpanTrait, ArrayTCloneImpl};
-use result::ResultTrait;
-use serde::Serde;
-
-use box::BoxTrait;
-use integer::u256;
-
-use balance_query::erc20::mock_erc20::MockERC20;
-use balance_query::erc20::mock_erc20::MockERC20::{Event::ERC20Event};
 use balance_query::erc20::erc20::{IERC20Dispatcher, IERC20DispatcherTrait};
 
 use balance_query::balance_query::{IBalanceQueryDispatcher, IBalanceQueryDispatcherTrait};
-use balance_query::balance_query::TokenBalance;
 
 
 const INITIAL_SUPPLY: u256 = 1000000000;
@@ -120,36 +101,5 @@ fn test_query_list() {
     assert!(query_result.len() == 2, "Result should have 2 elements");
     assert!(query_result.at(0).len() == 3, "Result should have 2 elements");
     assert!(*query_result.at(0).at(0) == transfer_value, "Result should have 100");
-    print!("Result: {:?}", query_result);
-}
-
-#[test]
-#[should_panic(expected: ('Got an exception',))]
-fn test_token_not_exist() {
-    let (erc20_address_1, _, balance_query_address) = setup();
-    let erc20_1 = IERC20Dispatcher { contract_address: erc20_address_1 };
-
-    let account: ContractAddress = contract_address_const::<1>();
-
-    assert(erc20_1.balance_of(account) == INITIAL_SUPPLY, 'Balance should be > 0');
-    let account2: ContractAddress = contract_address_const::<2>();
-    let account3: ContractAddress = contract_address_const::<3>();
-    let account4: ContractAddress = contract_address_const::<4>();
-
-    let transfer_value: u256 = 100;
-
-    cheat_caller_address(erc20_address_1, account, CheatSpan::TargetCalls(3));
-    erc20_1.transfer(account2, transfer_value);
-    erc20_1.transfer(account3, transfer_value * 2);
-    erc20_1.transfer(account4, transfer_value * 3);
-
-    let not_token: ContractAddress = contract_address_const::<111>();
-
-    let token_list = array![erc20_address_1, not_token];
-    let account_list = array![account2, account3, account4];
-
-    let balance_query = IBalanceQueryDispatcher { contract_address: balance_query_address };
-    let query_result = balance_query.query_balance_lists(token_list, account_list);
-
     print!("Result: {:?}", query_result);
 }

@@ -1,2 +1,2 @@
-mod erc20;
-mod balance_query;
+pub mod erc20;
+pub mod balance_query;
