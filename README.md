@@ -1,6 +1,6 @@
 # Starknet Balance Query
 
-# Starknet-Foundry template ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/amanusk/starknet-foundry-template/blob/main/LICENSE) ![example workflow](https://github.com/amanusk/starknet-foundry-template/actions/workflows/scarb.yml/badge.svg)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/amanusk/starknet-foundry-template/blob/main/LICENSE) ![example workflow](https://github.com/amanusk/starknet-foundry-template/actions/workflows/scarb.yml/badge.svg)
 
 
 Contract to query bulk addresses and token balances. Provided with rust scripts to read and display balances.
