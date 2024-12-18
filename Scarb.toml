@@ -1,7 +1,6 @@
 [package]
 name = "balance_query"
 version = "0.1.0"
-license-file = "LICENSE"
 edition = "2024_07"
 
 # See more keys and their definitions at https://docs.swmansion.com/scarb/docs/reference/manifest
@@ -10,8 +9,11 @@ edition = "2024_07"
 sierra = true
 
 [dependencies]
-starknet = "2.9.0"
-openzeppelin = "0.20.0"
+starknet = "2.8.5"
+openzeppelin = "0.19.0"
 
 [dev-dependencies]
 snforge_std = "0.35.0"
+
+[tool.voyager]
+balance_query = { path = "src/balance_query.cairo" }
