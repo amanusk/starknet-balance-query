@@ -6,11 +6,14 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: software-mansion/setup-scarb@v1
         with:
-          scarb-version: "2.6.5"
+          scarb-version: "2.9.2"
+          scarb-lock: ./Scarb.lock
+
       - uses: foundry-rs/setup-snfoundry@v3
         with:
-          starknet-foundry-version: "0.27.0"
+          starknet-foundry-version: "0.35.0"
+
       - run: snforge test
